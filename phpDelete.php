@@ -5,11 +5,24 @@
   <title>PHP Deletion Page</title>
 </head>
 <body>
+    <h3 style="display:inline;">Enter filename or path of directory to destroy:</h3>
+    <br>
+    <br>
     <form action="" id="deletionForm" method="post" onsubmit="checkChoice()">
-        <h3 style="display:inline;">Enter filename or path of directory to destroy:</h3>
-        <br>
-        <br>
-        <input type="text" name="filepath" id="filepath">
+        <?php
+        echo '<select id="filepath" name="filepath">';
+        $fileList = scandir(getcwd());
+        foreach($fileList as $select => $row){
+        echo '<option value=' . $row . '>' . $row . '</option>';
+        }
+        echo '</select>';
+            // $fileList = scandir(getcwd());
+            // for($i = 0; $i < sizeof($fileList); $i ++) {
+            //     echo("<option value='" . $fileList[$i] . "'>" . $fileList[$i] . "<option>");
+            // }
+        ?>
+        
+        <!--<input type="text" name="filepath" id="filepath">-->
         <input type="submit" value="Delete" name="submit">
     </form>
     <br>
@@ -18,6 +31,7 @@
     <?php
     // List current files in directory
     $fileList = scandir(getcwd());
+    print_r($fileList);
     for($i = 0; $i < sizeof($fileList); $i ++) {
         // if file is directory output it in red
         if(is_dir($fileList[$i])){
